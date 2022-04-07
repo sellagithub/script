@@ -15,15 +15,17 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                 <h4 class="mb-0 p-20 f-21 font-weight-normal text-capitalize border-bottom-grey">
                     @lang('app.project') @lang('app.details') poliwangi</h4>
                 <input type="hidden" name="template_id" value="{{ $projectTemplate->id ?? '' }}">
+                <h6 class="mb-0 p-20 f-16 font-weight-bold text-capitalize">
+                    DATA KONTRAK</h6>
                 <div class="row p-20">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-3">
                         <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('No Kontrak')"
                             fieldName="project_name" fieldRequired="true" fieldId="project_name"
                             :fieldPlaceholder="__('placeholders.project')"
                             :fieldValue="$projectTemplate->project_name ?? ''" />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <x-forms.label class="my-3" fieldId="category_id"
                             :fieldLabel="__('Tipe Kontrak')">
                         </x-forms.label>
@@ -47,15 +49,63 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                         </x-forms.input-group>
                     </div>
 
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-3">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Tipe Proyek')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+
+                    <div class="col-md-3">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Pos Anggaran')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
                         <x-forms.datepicker fieldId="start_date" fieldRequired="true"
-                            :fieldLabel="__('modules.projects.startDate')" fieldName="start_date"
+                            :fieldLabel="__('Tanggal Mulai Kontrak')" fieldName="start_date"
                             :fieldPlaceholder="__('placeholders.date')" />
                     </div>
 
-                    <div class="col-md-6 col-lg-3" id="deadlineBox">
+                    <div class="col-md-6 col-lg-4" id="deadlineBox">
                         <x-forms.datepicker fieldId="deadline" fieldRequired="true"
-                            :fieldLabel="__('modules.projects.deadline')" fieldName="deadline"
+                            :fieldLabel="__('Tanggal Akhir Kontrak')" fieldName="deadline"
                             :fieldPlaceholder="__('placeholders.date')" />
                     </div>
 
@@ -126,6 +176,169 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                                 :selected="request('default_client') ?? null" />
                         @endif
                     </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h6 class="mb-0 p-20 f-16 font-weight-bold text-capitalize">DATA KP</h6>
+                    <div class="row p-20">
+                    <div class="col-lg-4 col-md-4">
+                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('No PK')"
+                            fieldName="project_name" fieldRequired="true" fieldId="project_name"
+                            :fieldPlaceholder="__('placeholders.project')"
+                            :fieldValue="$projectTemplate->project_name ?? ''" />
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <x-forms.datepicker fieldId="start_date" fieldRequired="true"
+                            :fieldLabel="__('Tanggal Mulai PK')" fieldName="start_date"
+                            :fieldPlaceholder="__('placeholders.date')" />
+                    </div>
+
+                    <div class="col-md-4 col-lg-4">
+                        <x-forms.datepicker fieldId="start_date" fieldRequired="true"
+                            :fieldLabel="__('Tanggal Akhir PK')" fieldName="start_date"
+                            :fieldPlaceholder="__('placeholders.date')" />
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('No Kontrak/PK')"
+                            fieldName="project_name" fieldRequired="true" fieldId="project_name"
+                            :fieldPlaceholder="__('placeholders.project')"
+                            :fieldValue="$projectTemplate->project_name ?? ''" />
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('Lokasi Kontrak/PK')"
+                            fieldName="project_name" fieldRequired="true" fieldId="project_name"
+                            :fieldPlaceholder="__('placeholders.project')"
+                            :fieldValue="$projectTemplate->project_name ?? ''" />
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('Nama Pelanggan')"
+                            fieldName="project_name" fieldRequired="true" fieldId="project_name"
+                            :fieldPlaceholder="__('placeholders.project')"
+                            :fieldValue="$projectTemplate->project_name ?? ''" />
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('No Agenda Pelanggan')"
+                            fieldName="project_name" fieldRequired="true" fieldId="project_name"
+                            :fieldPlaceholder="__('placeholders.project')"
+                            :fieldValue="$projectTemplate->project_name ?? ''" />
+                    </div>
+                    <div class="col-md-3">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Pilih Rekanan')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+                    <div class="col-md-3">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Unit Wilayah')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+                    <div class="col-md-4">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Status Proyek')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+                    <div class="col-md-4">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Tambah Pengawas')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+                    <div class="col-md-4">
+                        <x-forms.label class="my-3" fieldId="category_id"
+                            :fieldLabel="__('Tambah Direksi Pengawas')">
+                        </x-forms.label>
+                        <x-forms.input-group>
+                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                                data-live-search="true">
+                                <option value="">--</option>
+                                @foreach ($categories as $category)
+                                    <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
+                                        {{ ucwords($category->category_name) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
+                                <x-slot name="append">
+                                    <button id="addProjectCategory" type="button"
+                                        class="btn btn-outline-secondary border-grey">+</button>
+                                </x-slot>
+                            @endif
+                        </x-forms.input-group>
+                    </div>
+
 
                     <div class="col-md-12 col-lg-6">
                         <div class="form-group my-3">
