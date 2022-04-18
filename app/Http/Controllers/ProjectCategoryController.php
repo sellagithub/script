@@ -21,6 +21,7 @@ class ProjectCategoryController extends AccountBaseController
     }
 
     public function store(StoreProjectCategory $request)
+
     {
         $this->addPermission = user()->permission('manage_project_category');
         abort_403(!in_array($this->addPermission, ['all', 'added']));

@@ -14,7 +14,7 @@ return [
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', false),
+    'enabled' => env('DEBUGBAR_ENABLED', null),
     'except' => [
         'telescope*',
         'horizon*',
@@ -38,6 +38,8 @@ return [
         'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
         'provider'   => '', // Instance of StorageInterface for custom driver
+        'hostname'   => '127.0.0.1', //Hostname to use with the "socket" driver
+        'port'       => 2304, //Port to use with the "socket" driver
     ],
 
     /*
