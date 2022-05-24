@@ -37,6 +37,11 @@ use App\Traits\ProjectProgress;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Project_type;
+use App\Models\Pos_anggaran;
+use App\Models\Rekanan;
+use App\Models\Unit_wilayah;
+use App\Models\Tambah_pengawas;
 
 class ProjectController extends AccountBaseController
 {
@@ -184,6 +189,11 @@ class ProjectController extends AccountBaseController
         $this->teams = Team::all();
         $this->employees = User::allEmployees();
         $this->redirectUrl = request()->redirectUrl;
+        $this->tipeprojek = Project_type::all();
+        $this->posanggaran = Pos_Anggaran::all();
+        $this->rekanan = Rekanan::all();
+        $this->unitwilayah = Unit_wilayah::all();
+        $this->tambahpengawas = Tambah_pengawas::all();
 
         $this->projectTemplate = request('template') ? ProjectTemplate::with('membersMany')->findOrFail(request('template')) : null;
 

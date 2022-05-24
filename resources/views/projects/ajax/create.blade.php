@@ -57,9 +57,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($tipeprojek as $projek)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($projek->project_type_name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -81,9 +81,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($posanggaran as $pos_anggaran)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($pos_anggaran->pos_anggaran_name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -231,9 +231,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($rekanan as $pilihrekanan)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($pilihrekanan->rekanan_name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -254,9 +254,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($unitwilayah as $pilihunitwilayah)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($pilihunitwilayah->unit_wilayah_name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -300,9 +300,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($tambahpengawas as $pengawas)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($pengawas->tambah_pengawas_name) }}
                                     </option>
                                 @endforeach
                             </select>
