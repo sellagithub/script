@@ -277,9 +277,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($statusproyek as $proyek)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($proyek->status_proyek_name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -323,9 +323,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <select class="form-control select-picker" name="category_id" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
-                                @foreach ($categories as $category)
+                                @foreach ($tambahdireksipengawas as $direksipengawas)
                                     <option @if ($projectTemplate && $projectTemplate->category_id == $category->id) selected @endif value="{{ $category->id }}">
-                                        {{ ucwords($category->category_name) }}
+                                        {{ ucwords($direksipengawas->tambah_direksipengawas_name) }}
                                     </option>
                                 @endforeach
                             </select>

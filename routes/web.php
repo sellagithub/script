@@ -470,6 +470,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
 
     /* PROJECTS */
     Route::resource('projectCategory', ProjectCategoryController::class);
+    
 
     Route::group(
         ['prefix' => 'projects'],

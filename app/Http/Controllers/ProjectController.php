@@ -42,6 +42,8 @@ use App\Models\Pos_anggaran;
 use App\Models\Rekanan;
 use App\Models\Unit_wilayah;
 use App\Models\Tambah_pengawas;
+use App\Models\Tambah_direksipengawas;
+use App\Models\Status_proyek;
 
 class ProjectController extends AccountBaseController
 {
@@ -194,6 +196,8 @@ class ProjectController extends AccountBaseController
         $this->rekanan = Rekanan::all();
         $this->unitwilayah = Unit_wilayah::all();
         $this->tambahpengawas = Tambah_pengawas::all();
+        $this->tambahdireksipengawas = Tambah_direksipengawas::all();
+        $this->statusproyek = Status_proyek::all();
 
         $this->projectTemplate = request('template') ? ProjectTemplate::with('membersMany')->findOrFail(request('template')) : null;
 

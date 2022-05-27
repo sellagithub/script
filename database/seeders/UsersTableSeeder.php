@@ -42,6 +42,12 @@ class UsersTableSeeder extends Seeder
         $user->email = 'admin@example.com';
         $user->password = Hash::make('123456');
         $user->save();
+        
+        $user = new User();
+        $user->name = "Sella";
+        $user->email = 'sella@mail.com';
+        $user->password = Hash::make('123456');
+        $user->save();
 
         $employee = new \App\Models\EmployeeDetails();
         $employee->user_id = $user->id;
