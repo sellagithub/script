@@ -149,6 +149,7 @@ use App\Http\Controllers\OfflinePaymentSettingController;
 use App\Http\Controllers\ProjectTemplateMemberController;
 use App\Http\Controllers\ProjectTemplateSubTaskController;
 use App\Http\Controllers\PaymentGatewayCredentialController;
+use App\Http\Controllers\ProjectTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -470,6 +471,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'account'], function () {
 
     /* PROJECTS */
     Route::resource('projectCategory', ProjectCategoryController::class);
+    Route::resource('Project_type', ProjectTypeController::class);
     
 
     Route::group(

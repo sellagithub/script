@@ -10,7 +10,7 @@ use App\Models\ProjectCategory;
 class ProjectCategoryController extends AccountBaseController
 {
 
-    public function create()
+    public function create() 
     {
         $this->addPermission = user()->permission('manage_project_category');
         abort_403(!in_array($this->addPermission, ['all', 'added']));

@@ -66,7 +66,7 @@ $addPublicProjectPermission = user()->permission('create_public_project');
 
                             @if ($addProjectCategoryPermission == 'all' || $addProjectCategoryPermission == 'added')
                                 <x-slot name="append">
-                                    <button id="addProjectCategory" type="button"
+                                    <button id="addProject_type" type="button"
                                         class="btn btn-outline-secondary border-grey">+</button>
                                 </x-slot>
                             @endif
@@ -708,6 +708,14 @@ $addPublicProjectPermission = user()->permission('create_public_project');
 
         $('#addProjectCategory').click(function() {
             const url = "{{ route('projectCategory.create') }}";
+            $(MODAL_LG + ' ' + MODAL_HEADING).html('...');
+            $.ajaxModal(MODAL_LG, url);
+        });
+
+        
+
+        $('#addProject_type').click(function() {
+            const url = "{{ route('Project_type.create') }}";
             $(MODAL_LG + ' ' + MODAL_HEADING).html('...');
             $.ajaxModal(MODAL_LG, url);
         });
