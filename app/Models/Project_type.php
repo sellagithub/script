@@ -3,7 +3,7 @@
 
 namespace App\Models;
 
-use App\Observers\ProjectCategoryObserver;
+use App\Observers\ProjectTypeObserver;
 use Froiden\RestAPI\ApiModel;
 
 /**
@@ -36,7 +36,7 @@ class Project_type extends ApiModel
     protected static function boot()
     {
         parent::boot();
-        static::observe(ProjectCategoryObserver::class);
+        static::observe(ProjectTypeObserver::class);
     }
 
     public function project()

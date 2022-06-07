@@ -3,7 +3,7 @@
 @endphp
 
 <div class="modal-header">
-    <h5 class="modal-title" id="modelHeading">@lang('modules.projects.Project_type')</h5>
+    <h5 class="modal-title" id="modelHeading">Tipe Proyek</h5> 
     <button type="button"  class="close" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">×</span></button>
 </div>
@@ -11,14 +11,14 @@
     <x-table class="table-bordered" headType="thead-light">
         <x-slot name="thead">
             <th>#</th>
-            <th>@lang('modules.Project_type.project_type_name')</th>
-            <th class="text-right">@lang('app.action')</th>
+            <th>Nama Tipe Proyek</th>
+            <th class="text-right">Aksi</th>
         </x-slot>
 
-        @forelse($tipeprojek as $key=>$projek)
-            <tr id="cat-{{ $projek->id }}">
+        @forelse($semuaTipeProyek as $key=>$proyek)
+            <tr id="cat-{{ $proyek->id }}">
                 <td>{{ $key + 1 }}</td>
-                <td data-row-id="{{ $projek->id }}" contenteditable="true">{{ ucwords($projek->project_type_name) }}</td>
+                <td data-row-id="{{ $proyek->id }}" contenteditable="true">{{ ucwords($proyek->project_type_name) }}</td>
                 <td class="text-right">
                     @if ($deleteProjectCategoryPermission == 'all' || ($deleteProjectCategoryPermission == 'added' && $projek->added_by == user()->id))
                         <x-forms.button-secondary data-cat-id="{{ $projek->id }}" icon="trash" class="delete-projek">
@@ -36,8 +36,8 @@
     <x-form id="createProject_type">
         <div class="row border-top-grey ">
             <div class="col-sm-12">
-                <x-forms.text fieldId="project_type_name" :fieldLabel="__('modules.Project_type.project_type_name')"
-                    fieldName="project_type_name" fieldRequired="true" :fieldPlaceholder="__('placeholders.category')">
+                <x-forms.text fieldId="project_type_name" :fieldLabel="__('Nama Tipe Proyek')"
+                    fieldName="project_type_name" fieldRequired="true" :fieldPlaceholder="__('Tipe Proyek')">
                 </x-forms.text>
             </div>
 
@@ -45,8 +45,8 @@
     </x-form>
 </div>
 <div class="modal-footer">
-    <x-forms.button-cancel data-dismiss="modal" class="border-0 mr-3">@lang('app.close')</x-forms.button-cancel>
-    <x-forms.button-primary id="save-projek" icon="check">@lang('app.save')</x-forms.button-primary>
+    <x-forms.button-cancel data-dismiss="modal" class="border-0 mr-3">tutup</x-forms.button-cancel>
+    <x-forms.button-primary id="save-proyek" icon="check">simpan</x-forms.button-primary>
 </div>
 
 <script>
@@ -97,7 +97,7 @@
 
     });
 
-    $('#save-projek').click(function() {
+    $('#save-proyek').click(function() {
         var url = "{{ route('Project_type.store') }}";
         $.easyAjax({
             url: url,

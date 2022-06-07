@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\Reply;
-use App\Http\Requests\ProjectTemplate\StoreProjectCategory;
+use App\Http\Requests\ProjectTemplate\StoreProjectType;
 use App\Models\BaseModel;
 use App\Models\Project_type;
 use Illuminate\Http\Request; //asli dari controllernya
@@ -30,8 +30,10 @@ class ProjectTypeController extends AccountBaseController
         $this->addPermission = user()->permission('manage_project_category');
         abort_403(!in_array($this->addPermission, ['all', 'added']));
 
-        $this->categories = Project_type::allTipeprojek();
+        $this->semuaTipeProyek = Project_type::all();
+
         return view('projects.create_tipeprojek', $this->data);
+
     }
 
     /**
@@ -45,11 +47,11 @@ class ProjectTypeController extends AccountBaseController
         $this->addPermission = user()->permission('manage_project_category');
         abort_403(!in_array($this->addPermission, ['all', 'added']));
 
-        $projek = new Project_type();
-        $projek->project_type_name = $request->project_type_name;
+        $projek = new Project_type(); //menyiapkan var projek
+        $projek->project_type_name = $request->project_type_name; 
         $projek->save();
 
-        $tipeprojek = Project_type::allTipeprojek();
+        $tipeprojek = Project_type::all();
 
         $options = BaseModel::options($tipeprojek, $projek, 'project_type_name');
 
