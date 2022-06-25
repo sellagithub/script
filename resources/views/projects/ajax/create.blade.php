@@ -30,7 +30,7 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             :fieldLabel="__('Tipe Kontrak')">
                         </x-forms.label>
                         <x-forms.input-group>
-                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                            <select class="form-control select-picker" name="txttipe_kontrak" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
                                 @foreach ($categories as $category)
@@ -54,7 +54,7 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             :fieldLabel="__('Tipe Proyek')">
                         </x-forms.label>
                         <x-forms.input-group>
-                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                            <select class="form-control select-picker" name="txttipe_proyek" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
                                 @foreach ($tipeprojek as $projek)
@@ -78,7 +78,7 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             :fieldLabel="__('Pos Anggaran')">
                         </x-forms.label>
                         <x-forms.input-group>
-                            <select class="form-control select-picker" name="category_id" id="project_category_id"
+                            <select class="form-control select-picker" name="txtpos_anggaran" id="project_category_id"
                                 data-live-search="true">
                                 <option value="">--</option>
                                 @foreach ($posanggaran as $pos_anggaran)
@@ -189,18 +189,18 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                     </div>
 
                     <div class="col-md-4 col-lg-4">
-                        <x-forms.datepicker fieldId="start_date" fieldRequired="true"
-                            :fieldLabel="__('Tanggal Mulai PK')" fieldName="start_date"
+                        <x-forms.datepicker fieldId="start_date_pk" fieldRequired="true"
+                            :fieldLabel="__('Tanggal Mulai PK')" fieldName="start_date_pk"
                             :fieldPlaceholder="__('placeholders.date')" />
                     </div>
 
                     <div class="col-md-4 col-lg-4">
-                        <x-forms.datepicker fieldId="start_date" fieldRequired="true"
-                            :fieldLabel="__('Tanggal Akhir PK')" fieldName="start_date"
+                        <x-forms.datepicker fieldId="deadline_pk" fieldRequired="true"
+                            :fieldLabel="__('Tanggal Akhir PK')" fieldName="deadline_pk"
                             :fieldPlaceholder="__('placeholders.date')" />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('No Kontrak/PK')"
+                        <x-forms.text class="mr-0 mr-lg-2 mr-md-2" :fieldLabel="__('Uraian Kontrak')"
                             fieldName="project_name" fieldRequired="true" fieldId="project_name"
                             :fieldPlaceholder="__('placeholders.project')"
                             :fieldValue="$projectTemplate->project_name ?? ''" />
@@ -340,7 +340,7 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                     </div>
 
 
-                    <div class="col-md-12 col-lg-6">
+                    <!-- <div class="col-md-12 col-lg-6">
                         <div class="form-group my-3">
                             <x-forms.label class="my-3" fieldId="project_summary"
                                 :fieldLabel="__('modules.projects.projectSummary')">
@@ -349,9 +349,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <textarea name="project_summary" id="project_summary-text"
                                 class="d-none">{!! $projectTemplate->project_summary ?? '' !!}</textarea>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-md-12 col-lg-6">
+                    <!-- <div class="col-md-12 col-lg-6">
                         <div class="form-group my-3">
                             <x-forms.label class="my-3" fieldId="notes"
                                 :fieldLabel="__('modules.projects.note')">
@@ -360,9 +360,9 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                             <textarea name="notes" id="notes-text"
                                 class="d-none">{!! $projectTemplate->notes ?? '' !!}</textarea>
                         </div>
-                    </div>
+                    </div> -->
 
-                    @if ($addPublicProjectPermission == 'all')
+                    <!-- @if ($addPublicProjectPermission == 'all')
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="d-flex mt-2">
@@ -371,7 +371,7 @@ $addPublicProjectPermission = user()->permission('create_public_project');
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    @endif -->
 
                     <div class="col-md-12" id="add_members">
                         <div class="form-group my-3">
@@ -676,6 +676,31 @@ $addPublicProjectPermission = user()->permission('create_public_project');
             }
         });
 
+        const dp3 = datepicker('#start_date_pk', {
+            position: 'bl',
+            onSelect: (instance, date) => {
+                dp4.setMin(date);
+            },
+            ...datepickerConfig
+        });
+
+        const dp4 = datepicker('#deadline_pk', {
+            position: 'bl',
+            onSelect: (instance, date) => {
+                dp3.setMin(date);
+            },
+            ...datepickerConfig
+        });
+
+        $('#without_deadline_pk').click(function() {
+            var check = $('#without_deadline_pk').is(":checked") ? true : false;
+            if (check == true) {
+                $('#deadlineBox').hide();
+            } else {
+                $('#deadlineBox').show();
+            }
+        });
+
         $('#save-project-form').click(function() {
             var note = document.getElementById('project_summary').children[0].innerHTML;
             document.getElementById('project_summary-text').value = note;
@@ -711,8 +736,6 @@ $addPublicProjectPermission = user()->permission('create_public_project');
             $(MODAL_LG + ' ' + MODAL_HEADING).html('...');
             $.ajaxModal(MODAL_LG, url);
         });
-
-        
 
         $('#addProject_type').click(function() {
             const url = "{{ route('Project_type.create') }}";
